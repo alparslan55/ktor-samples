@@ -19,6 +19,9 @@ fun Application.configureRouting() {
 
     routing {
         post("/login") {
+
+            call
+
             val request = call.receive<LoginRequest>()
 
             val userName = request.username

@@ -1,0 +1,133 @@
+openapi: "3.1.0"
+info:
+  title: "ktor_sample1 API"
+  description: "ktor_sample1 API"
+  version: "1.0.0"
+paths:
+  /login:
+    post:
+      description: ""
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+        required: true
+      responses:
+        "401":
+          description: "Unauthorized"
+          content:
+            '*/*':
+              schema:
+                type: "object"
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/LoginResponse"
+  /register:
+    post:
+      description: ""
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterRequest"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/RegisterResponse"
+  /say-hello/{name}:
+    get:
+      description: ""
+      parameters:
+        - name: "name"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            text/plain:
+              schema:
+                type: "string"
+              examples:
+                Example#1:
+                  value: ""
+  /user:
+    get:
+      description: ""
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+              examples:
+                Example#1:
+                  value: ""
+  /json/kotlinx-serialization:
+    get:
+      description: ""
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Map_String"
+components:
+  schemas:
+    LoginRequest:
+      type: "object"
+      properties:
+        username:
+          type: "string"
+        password:
+          type: "string"
+      required:
+        - "username"
+        - "password"
+    LoginResponse:
+      type: "object"
+      properties:
+        token:
+          type: "string"
+      required:
+        - "token"
+    RegisterRequest:
+      type: "object"
+      properties:
+        name:
+          type: "string"
+        surname:
+          type: "string"
+        email:
+          type: "string"
+        password:
+          type: "string"
+      required:
+        - "name"
+        - "surname"
+        - "email"
+        - "password"
+    RegisterResponse:
+      type: "object"
+      properties:
+        result:
+          type: "boolean"
+      required:
+        - "result"
+    Map:
+      type: "object"
+      properties: { }
+    Map_String:
+      type: "string"

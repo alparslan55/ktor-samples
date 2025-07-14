@@ -19,18 +19,29 @@ import org.jetbrains.exposed.v1.jdbc.transactions.transaction
  */
 object Database {
 
-    fun getDbConfig() = HikariConfig().apply {
+    fun getDbConfig(
+        userName: String,
+        password: String
+    ) = HikariConfig().apply {
         jdbcUrl = "jdbc:postgresql://localhost:5432/exampledatabase"
         driverClassName = "org.postgresql.Driver"
-        username = "postgres"
-        password = "alparslan55"
+        username = userName
+        this.password = password
         maximumPoolSize = 6
         isReadOnly = false
         transactionIsolation = "TRANSACTION_SERIALIZABLE"
     }
 
-    fun connect() : Database {
-        val dataSource = HikariDataSource(getDbConfig())
+    fun connect(
+        userName: String,
+        password: String
+    ): Database {
+        val dataSource = HikariDataSource(
+            getDbConfig(
+                userName = userName,
+                password = password
+            )
+        )
         val db = Database.connect(datasource = dataSource)
 
         transaction {
